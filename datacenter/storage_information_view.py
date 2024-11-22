@@ -1,13 +1,12 @@
 import os
 import django
 import datetime
-from models import Passcard
-from models import Visit
-from django.shortcuts import render
 
+
+from datacenter.models import Passcard
+from datacenter.models import Visit
+from django.shortcuts import render
 from django.utils.timezone import make_aware
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
-django.setup()
 
 
 def get_duration(visit):
@@ -15,6 +14,7 @@ def get_duration(visit):
     then = visit.entered_at
     delta = now - then
     return delta
+
 
 def format_duration(duration):
     minutes = (duration.total_seconds() % 3600) // 60
@@ -29,12 +29,12 @@ def storage_information_view(request):
         formated_duration = format_duration(duration)
         person = []
         person = {
-            "who entered": str(visit.passcard),
-            "entered_at": str(visit.entered_at),
+            "who_entered": visit.passcard.owner_name,
+            "entered_at": visit.entered_at,
             "duration": formated_duration
             }
         non_closed_visits.append(person)
     context = {
-        'non_closed_visits': non_closed_visits,  # не закрытые посещения
+        'non_closed_visits': non_closed_visits
     }
     return render(request, 'storage_information.html', context)
