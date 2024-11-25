@@ -4,15 +4,13 @@ import datetime
 def is_visit_long(visit):
     visit_duration = get_duration(visit)
     visit_minutes = format_duration(visit_duration)
-    if visit_minutes>50:
+    if visit_minutes>60: #длительность визита больше часа
         return visit
-    else:
-        return None
     
 def get_duration(visit):
     entering_time = visit.entered_at
     leaving_time = visit.leaved_at
-    if leaving_time ==  None:
+    if not leaving_time:
         leaving_time = make_aware(datetime.datetime.now())
     delta = leaving_time - entering_time
     return delta
