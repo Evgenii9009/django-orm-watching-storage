@@ -3,9 +3,9 @@ import datetime
 
 def is_visit_long(visit):
     visit_duration = get_duration(visit)
-    visit_minutes = format_duration(visit_duration)
-    if visit_minutes>60: #длительность визита больше часа
-        return visit
+    visit_hours = (visit_duration.total_seconds() // 3600)
+    return visit_hours>1 # длительность визита больше часа
+    
     
 def get_duration(visit):
     entering_time = visit.entered_at
