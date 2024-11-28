@@ -6,24 +6,24 @@ env.read_env()
 
 DATABASES = {
     'default': {
-        'ENGINE': env.str('BANK_ENGINE'),
-        'HOST': env.str('BANK_HOST'),
-        'PORT': env.int('BANK_PORT'),
-        'NAME': env.str('BANK_NAME'),
-        'USER': env.str('BANK_USER'),
-        'PASSWORD': env.str('BANK_PASSWORD'),
+        'ENGINE': env.str('DB_ENGINE'),
+        'HOST': env.str('DB_HOST'),
+        'PORT': env.int('DB_PORT'),
+        'NAME': env.str('DB_NAME'),
+        'USER': env.str('DB_USER'),
+        'PASSWORD': env.str('DB_PASSWORD'),
     }
 }
 
 INSTALLED_APPS = ['datacenter']
 
-SECRET_KEY = 'REPLACE_ME'
+SECRET_KEY = env.str('DB_SECRETKEY')
 
 DEBUG = env.bool('DEBUG')
 
 ROOT_URLCONF = 'project.urls'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
